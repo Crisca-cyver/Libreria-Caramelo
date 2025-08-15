@@ -1,101 +1,125 @@
-# Sistema de Ventas con Turso
+# ShopEase - E-commerce Store
 
-Este es un sistema de ventas simple que utiliza Turso como base de datos distribuida para almacenar productos y ventas.
+A modern e-commerce platform built with React, TypeScript, and Supabase, featuring Stripe integration for payments.
 
-## Requisitos
+## Features
 
-- Node.js (versión 14 o superior)
-- NPM (incluido con Node.js)
-- Una cuenta en Turso (https://turso.tech)
+- 🛍️ Product catalog with dynamic loading
+- 🛒 Shopping cart functionality
+- 💳 Secure payments via Stripe
+- 🎨 Responsive design with Tailwind CSS
+- 🔐 Backend powered by Supabase
+- 📱 Mobile-friendly interface
 
-## Estructura del Proyecto
+## Tech Stack
+
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS
+- **Backend**: Supabase
+- **Payments**: Stripe
+- **Routing**: React Router v7
+- **Icons**: Lucide React
+
+## Prerequisites
+
+- Node.js (v20 or higher)
+- npm or yarn
+- Supabase account
+- Stripe account
+
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
+```
+
+For Supabase Edge Functions, set up:
+- `STRIPE_SECRET_KEY` in your Supabase project settings
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd shopease
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+## Database Setup
+
+Run the following SQL in your Supabase SQL editor:
+
+```sql
+create table products (
+  id uuid default gen_random_uuid() primary key,
+  name text not null,
+  price decimal(10,2) not null,
+  description text,
+  image text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+```
+
+## Supabase Edge Functions
+
+Deploy the checkout function:
+
+```bash
+supabase functions deploy create-checkout
+```
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Project Structure
 
 ```
-libreria web/
-├── data/
-├── index.html
-├── styles.css
-├── script.js
-├── server.js
-├── package.json
-└── .env
+├── src/
+│   ├── components/      # Reusable components
+│   ├── context/        # React context providers
+│   ├── data/          # Data fetching utilities
+│   ├── lib/           # Shared utilities
+│   ├── pages/         # Page components
+│   ├── types/         # TypeScript definitions
+│   └── main.tsx       # Application entry point
+├── supabase/
+│   ├── functions/     # Edge Functions
+│   └── migrations/    # Database migrations
+└── public/           # Static assets
 ```
 
-## Configuración de Turso
+## Contributing
 
-1. Instalar Turso CLI:
-   ```bash
-   curl -sSfL https://get.tur.so/install.sh | bash
-   ```
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-2. Iniciar sesión en Turso:
-   ```bash
-   turso auth login
-   ```
+## License
 
-3. Crear una nueva base de datos:
-   ```bash
-   turso db create sistema-ventas
-   ```
+MIT License - see LICENSE file for details
 
-4. Obtener la URL de la base de datos:
-   ```bash
-   turso db show sistema-ventas
-   ```
+## Acknowledgments
 
-5. Crear un token de autenticación:
-   ```bash
-   turso db tokens create sistema-ventas
-   ```
-
-6. Configurar las variables de entorno:
-   - Copiar la URL de la base de datos y el token en el archivo `.env`:
-   ```env
-   TURSO_DATABASE_URL=libsql://tu-url-de-base-de-datos
-   TURSO_AUTH_TOKEN=tu-token-de-autenticacion
-   ```
-
-## Instalación
-
-1. Instalar las dependencias:
-   ```bash
-   npm install
-   ```
-
-## Ejecución
-
-1. Iniciar el servidor:
-   ```bash
-   npm start
-   ```
-
-2. Abrir el archivo `index.html` en tu navegador web.
-
-## Características
-
-- Interfaz intuitiva y responsiva
-- Gestión de productos (agregar, eliminar)
-- Registro de ventas con historial
-- Almacenamiento persistente en Turso
-- Soporte para lector de código de barras
-
-## Uso
-
-1. **Agregar Productos**:
-   - Ingresa el código, nombre, precio y cantidad del producto
-   - Haz clic en "Agregar"
-
-2. **Finalizar Venta**:
-   - Los productos agregados aparecerán en la tabla de venta actual
-   - El total se calcula automáticamente
-   - Haz clic en "Finalizar Venta" para registrar la venta
-
-3. **Ver Historial**:
-   - El historial de ventas se muestra en la parte inferior
-   - Incluye fecha, productos vendidos y total
-
-## Notas
-
-- Los datos se almacenan de forma segura en Turso
-- La aplicación requiere conexión a internet para funcionar
-- Las credenciales de Turso deben mantenerse seguras
+- [Vite](https://vitejs.dev/)
+- [Supabase](https://supabase.com/)
+- [Stripe](https://stripe.com/)
+- [Tailwind CSS](https://tailwindcss.com/)

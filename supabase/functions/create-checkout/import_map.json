@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "stripe": "npm:stripe@13.11.0",
+    "http/": "https://deno.land/std@0.208.0/http/"
+  }
+}
